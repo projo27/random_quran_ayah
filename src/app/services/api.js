@@ -1,7 +1,7 @@
 // import Error from "next/error";
 
 const URLAPI = process.env.API_ALQURAN;
-const AYAH_NUMBERS = process.env.AYAH_NUMBERS;
+const NEXT_PUBLIC_AYAH_NUMBERS = process.env.NEXT_PUBLIC_AYAH_NUMBERS;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -10,17 +10,35 @@ function getRandomInt(min, max) {
 }
 
 export function randomAyahNumber() {
-  return getRandomInt(1, AYAH_NUMBERS)
+  return getRandomInt(1, NEXT_PUBLIC_AYAH_NUMBERS)
 }
 
 export async function fetchAyah(number) {
-  if (number > AYAH_NUMBERS || number < 1)
-    throw Error(`The Number should be between 1 and ${AYAH_NUMBERS}`);
+  if (number > NEXT_PUBLIC_AYAH_NUMBERS || number < 1)
+    throw Error(`The Number should be between 1 and ${NEXT_PUBLIC_AYAH_NUMBERS}`);
 
-  const response = await fetch(`${URLAPI}/ayah/${number}/quran`);
+  const response = await fetch(`${URLAPI}/ayah/${number}/quran`, {next: { revalidate : 0}});
 
   if (!response.ok)
     throw new Error('Failed to fetch data');
-  await new Promise(resolve => setTimeout(resolve, 4000))
+  await new Promise(resolve => setTimeout(resolve, 2000))
+  return response.json()
+}
+
+export async function fetchSurahs(){
+  const response = await fetch (`${URLAPI}/surah`);
+
+  if (!response.ok)
+    throw new Error(response.statusText);
+  await new Promise(resolve => setTimeout(resolve, 2000))
+  return response.json()
+}
+
+export async function fetchSurah(number){
+  const response = await fetch (`${URLAPI}/surah/${number}`);
+
+  if (!response.ok)
+    throw new Error(response.statusText);
+  await new Promise(resolve => setTimeout(resolve, 2000))
   return response.json()
 }
