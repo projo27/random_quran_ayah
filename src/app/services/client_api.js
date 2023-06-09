@@ -7,6 +7,5 @@ function getRandomInt(min, max) {
 }
 
 export function randomAyahNumber() {
-  console.log(process.env.NEXT_PUBLIC_AYAH_NUMBERS)
   return getRandomInt(1, process.env.NEXT_PUBLIC_AYAH_NUMBERS)
 }

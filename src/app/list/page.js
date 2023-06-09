@@ -2,23 +2,26 @@ import React from 'react'
 import { fetchSurahs } from '../services/api'
 import { Noto_Naskh_Arabic } from 'next/font/google';
 import Link from 'next/link';
+import ListItem from '../component/list_item';
+import { color } from '../services/theming';
 
 const notosans = Noto_Naskh_Arabic({ subsets: ['arabic'] });
 
 export default async function ListAyahs() {
+  
+  const {primary, secondary} = await color();
+  const textColor = `text-${primary}-500`;
   const { data } = await fetchSurahs();
 
   const list = data.map(e => {
     const { number, name, englishName, englishNameTranslation, numberOfAyahs, revelationType } = e;
     return (
-      <li className='mb-2' key={number}>
+      <ListItem key={number} className={`mb-2 p-0`}>
         <Link
-          href={`/surah/${number}`}
-          className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600"
-        >
-          <div className="flex flex-row justify-between">
+          href={`/surah/${number}`} >
+          <div className="flex flex-row justify-between p-4">
             <div className='flex flex-row justify-start items-center'>
-              <span className='flex flex-row justify-center items-center text-pink-500 opacity-80 h-7 w-7 left-1/2 text-2xl font-medium mr-3'>
+              <span className={`${textColor} flex flex-row justify-center items-center opacity-80 h-7 w-7 left-1/2 text-2xl font-medium mr-3`}>
                 {number}
               </span>
               {/* <img class="inline-block h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""> */}
@@ -33,9 +36,8 @@ export default async function ListAyahs() {
               {name}
             </strong>
           </div>
-
         </Link>
-      </li>
+      </ListItem>
     )
     // return <div>{`${number} ${englishName} ${name}`}</div>;
   });

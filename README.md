@@ -1,11 +1,9 @@
-This is a next.js project to get random daily quran ayah
-the goals of this apps was, to helps you recite quran
-and make it easy for you to share the quran, may you have
-reward from ALLAH
-
+This is a next.js project to get random daily quran ayah  
+the goals of this apps was, to helps you recite quran  
+and make it easy for you to share the quran, may you have  
+reward from ALLAH  
 
 credits : https://api.alquran.cloud/v1  
-
 
 
 ## Getting Started
@@ -30,3 +28,8 @@ git commit -m 'Added my project'
 git remote add origin https://github.com/projo27/random_quran_ayah.git
 git push -u -f origin master
 ```
+
+## little note :  
+if you want to share process.env to client, save it to .env  
+for server only, save it on .env.local  
+

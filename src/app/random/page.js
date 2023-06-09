@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { fetchAyah, randomAyahNumber } from '../services/api';
 import { Noto_Naskh_Arabic } from 'next/font/google';
+import Loading from '../loading';
 // const URLAPI = process.env.API_ALQURAN;
 // const NEXT_PUBLIC_AYAH_NUMBERS = process.env.NEXT_PUBLIC_AYAH_NUMBERS;
 
@@ -11,8 +12,14 @@ export const metadata = {
 
 const notosans = Noto_Naskh_Arabic({ subsets: ['arabic'] })
 
-export default async function RandomAyah() {
-  // console.log(randomAyahNumber());
+export default async function Page() {
+
+  return (
+    <Suspense fallback={<div>Gundul</div>}><Body /></Suspense>
+  )
+}
+
+export async function Body() {
   let { data: { text, numberInSurah, surah: { number, englishName, englishNameTranslation } } } = await fetchAyah(randomAyahNumber());
   return (
     <>
@@ -27,3 +34,4 @@ export default async function RandomAyah() {
     </>
   )
 }
+

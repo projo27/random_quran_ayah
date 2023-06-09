@@ -14,14 +14,15 @@ export function randomAyahNumber() {
 }
 
 export async function fetchAyah(number) {
+  number = parseInt(number);
+  // await new Promise(resolve => setTimeout(resolve, 2000))
   if (number > NEXT_PUBLIC_AYAH_NUMBERS || number < 1)
     throw Error(`The Number should be between 1 and ${NEXT_PUBLIC_AYAH_NUMBERS}`);
 
-  const response = await fetch(`${URLAPI}/ayah/${number}/quran`, {next: { revalidate : 0}});
+  const response = await fetch(`${URLAPI}/ayah/${number}/quran`);
 
   if (!response.ok)
     throw new Error('Failed to fetch data');
-  await new Promise(resolve => setTimeout(resolve, 2000))
   return response.json()
 }
 
@@ -30,7 +31,7 @@ export async function fetchSurahs(){
 
   if (!response.ok)
     throw new Error(response.statusText);
-  await new Promise(resolve => setTimeout(resolve, 2000))
+  // await new Promise(resolve => setTimeout(resolve, 2000))
   return response.json()
 }
 
@@ -39,6 +40,6 @@ export async function fetchSurah(number){
 
   if (!response.ok)
     throw new Error(response.statusText);
-  await new Promise(resolve => setTimeout(resolve, 2000))
+  // await new Promise(resolve => setTimeout(resolve, 2000))
   return response.json()
 }

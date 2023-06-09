@@ -12,9 +12,7 @@ export default function BottomNavbar() {
   const pathName = usePathname()
 
   function randomAyah(e) {
-    let number = randomAyahNumber();
-    console.log(randomAyahNumber());
-    router.push(`/random/5`);
+    router.push(`/random/${randomAyahNumber()}`);
     return;
   }
 
